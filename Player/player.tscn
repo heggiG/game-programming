@@ -240,6 +240,10 @@ offset_right = 208.0
 offset_bottom = 56.0
 columns = 10
 
+[node name="trackingTimer" type="Timer" parent="."]
+wait_time = 0.3
+one_shot = true
+
 [connection signal="hurt" from="HurtBox" to="." method="_on_hurt_box_hurt"]
 [connection signal="timeout" from="Attack/IceSpearTimer" to="." method="_on_ice_spear_timer_timeout"]
 [connection signal="timeout" from="Attack/IceSpearTimer/IceSpearAttackTimer" to="." method="_on_ice_spear_attack_timer_timeout"]
@@ -250,5 +254,6 @@ columns = 10
 [connection signal="area_entered" from="GrabArea" to="." method="_on_grab_area_area_entered"]
 [connection signal="area_entered" from="CollectArea" to="." method="_on_collect_area_area_entered"]
 [connection signal="click_end" from="GUILayer/GUI/DeathPanel/btn_menu" to="." method="_on_btn_menu_click_end"]
+[connection signal="timeout" from="trackingTimer" to="." method="_on_tracking_timer_timeout"]
 
 [editable path="HurtBox"]

@@ -52,6 +52,11 @@ var javelin_level = 0
 #Enemy Related
 var enemy_close = []
 
+# Movement Tracker
+var tracking = false
+@onready var trackingTimer = $trackingTimer
+var trackingButtonEnabled = true
+var trackedPoints = []
 
 @onready var sprite = $Sprite2D
 @onready var walkTimer = get_node("%walkTimer")
@@ -85,8 +90,17 @@ func _ready():
 
 func _physics_process(delta):
 	movement()
+	
 
 func movement():
+	if (Input.get_action_strength("start-elemental-attack") > 0 && trackingButtonEnabled):
+		trackingButtonEnabled = false
+		tracking = !tracking
+		trackingTimer.start()
+		if !tracking:
+			find_elemental_attack()
+			trackedPoints = []
+	
 	var x_mov = Input.get_action_strength("right") - Input.get_action_strength("left")
 	var y_mov = Input.get_action_strength("down") - Input.get_action_strength("up")
 	var mov = Vector2(x_mov,y_mov)
@@ -94,7 +108,12 @@ func movement():
 		sprite.flip_h = true
 	elif mov.x < 0:
 		sprite.flip_h = false
-
+	
+	if tracking:
+		if last_movement != mov.normalized() && mov.normalized() != Vector2.ZERO:
+			trackedPoints.append(mov.normalized())
+			print_debug(trackedPoints)
+	
 	if mov != Vector2.ZERO:
 		last_movement = mov
 		if walkTimer.is_stopped():
@@ -107,6 +126,15 @@ func movement():
 	velocity = mov.normalized()*movement_speed
 	move_and_slide()
 
+func find_elemental_attack():
+	var elementalTemplate = [[Vector2(1.0, 0.0), Vector2(0.0, 1.0), Vector2(-1.0, 0.0)]]
+	if elementalTemplate.has(trackedPoints.filter(filter_array)):
+		print_debug("Elemental1")
+	pass
+
+func filter_array(vec):
+	return vec.length() == 1.0
+
 func attack():
 	if icespear_level > 0:
 		iceSpearTimer.wait_time = icespear_attackspeed * (1-spell_cooldown)
@@ -118,6 +146,7 @@ func attack():
 			tornadoTimer.start()
 	if javelin_level > 0:
 		spawn_javelin()
+
 
 func _on_hurt_box_hurt(damage, _angle, _knockback):
 	hp -= clamp(damage-armor, 1.0, 999.0)
@@ -374,3 +403,7 @@ func death():
 func _on_btn_menu_click_end():
 	get_tree().paused = false
 	var _level = get_tree().change_scene_to_file("res://TitleScreen/menu.tscn")
+
+
+func _on_tracking_timer_timeout():
+	trackingButtonEnabled = true

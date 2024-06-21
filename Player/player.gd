@@ -44,7 +44,7 @@ var icespear_level = 0
 #Golem
 var golem_ammo = 0
 var golem_baseammo = 0
-var golem_attackspeed = 1.0
+var golem_attackspeed = 5.0
 var golem_level = 0
 
 #Tornado
@@ -87,7 +87,7 @@ var enemy_close = []
 signal playerdeath
 
 func _ready():
-	upgrade_character("tornado1")
+	upgrade_character("icespear1")
 	attack()
 	set_expbar(experience, calculate_experiencecap())
 	_on_hurt_box_hurt(0,0,0)
@@ -182,7 +182,8 @@ func _on_golem_attack_timer_timeout():
 	if golem_ammo > 0:
 		var golem_attack = golem.instantiate()
 		golem_attack.position = position
-		golem_attack.target = get_random_target()
+		##golem_attack.target = get_random_target()
+		golem_attack.last_movement = last_movement
 		golem_attack.level = golem_level
 		add_child(golem_attack)
 		golem_ammo -= 1

@@ -79,7 +79,7 @@ unique_name_in_owner = true
 
 [node name="GolemTimer" type="Timer" parent="Attack"]
 unique_name_in_owner = true
-wait_time = 10.0
+wait_time = 5.0
 
 [node name="GolemAttackTimer" type="Timer" parent="Attack/GolemTimer"]
 unique_name_in_owner = true

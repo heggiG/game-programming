@@ -35,6 +35,7 @@ offset_right = 605.0
 offset_bottom = 320.0
 text = "															Music
 Celtic Battle (King Arthur’s Revenge) by Robo Music Studios
+cartoon air swoosh 6 by nezuai (freesound.org)
 															Icons
 Shikashi's Fantasy Icons by Matt Firth (shikashipx) & game-icons.net
 RPG Nature Tileset - Seasons by Stealthix
@@ -44,6 +45,7 @@ Icons found @ <creator>.itch.io
 Menu Image: rock in a felid (pixel art) by Uranium9 (deviantart)
 															Tutorials, bug hunting, examples, etc.
 BrannoDev, GDQuest, Muddy Wolf,"
+fit_content = true
 
 [node name="btn_returnmenu" parent="." instance=ExtResource("1_yyytl")]
 layout_mode = 0

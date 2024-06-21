@@ -15,6 +15,7 @@ var collected_experience = 0
 var iceSpear = preload("res://Player/Attack/ice_spear.tscn")
 var tornado = preload("res://Player/Attack/tornado.tscn")
 var javelin = preload("res://Player/Attack/javelin.tscn")
+var golem = preload("res://Player/Attack/golem.tscn")
 
 #AttackNodes
 @onready var iceSpearTimer = get_node("%IceSpearTimer")
@@ -22,6 +23,8 @@ var javelin = preload("res://Player/Attack/javelin.tscn")
 @onready var tornadoTimer = get_node("%TornadoTimer")
 @onready var tornadoAttackTimer = get_node("%TornadoAttackTimer")
 @onready var javelinBase = get_node("%JavelinBase")
+@onready var golemTimer = get_node("%GolemTimer")
+@onready var golemAttackTimer = get_node("%GolemAttackTimer")
 
 #UPGRADES
 var collected_upgrades = []
@@ -37,6 +40,12 @@ var icespear_ammo = 0
 var icespear_baseammo = 0
 var icespear_attackspeed = 1.5
 var icespear_level = 0
+
+#Golem
+var golem_ammo = 0
+var golem_baseammo = 0
+var golem_attackspeed = 5.0
+var golem_level = 0
 
 #Tornado
 var tornado_ammo = 0
@@ -118,6 +127,10 @@ func attack():
 			tornadoTimer.start()
 	if javelin_level > 0:
 		spawn_javelin()
+	if golem_level > 0:
+		golemTimer.wait_time = golem_attackspeed * (1-spell_cooldown)
+		if golemTimer.is_stopped():
+			golemTimer.start()
 
 func _on_hurt_box_hurt(damage, _angle, _knockback):
 	hp -= clamp(damage-armor, 1.0, 999.0)
@@ -160,6 +173,24 @@ func _on_tornado_attack_timer_timeout():
 			tornadoAttackTimer.start()
 		else:
 			tornadoAttackTimer.stop()
+
+func _on_golem_timer_timeout():
+	golem_ammo += golem_baseammo + additional_attacks
+	golemAttackTimer.start()
+
+func _on_golem_attack_timer_timeout():
+	if golem_ammo > 0:
+		var golem_attack = golem.instantiate()
+		golem_attack.position = position
+		##golem_attack.target = get_random_target()
+		golem_attack.last_movement = last_movement
+		golem_attack.level = golem_level
+		add_child(golem_attack)
+		golem_ammo -= 1
+		if golem_ammo > 0:
+			golemAttackTimer.start()
+		else:
+			golemAttackTimer.stop()
 
 func spawn_javelin():
 	var get_javelin_total = javelinBase.get_child_count()
@@ -293,6 +324,9 @@ func upgrade_character(upgrade):
 		"food":
 			hp += 20
 			hp = clamp(hp,0,maxhp)
+		"golem":
+			golem_level = 1
+			golem_baseammo = 1
 	adjust_gui_collection(upgrade)
 	attack()
 	var option_children = upgradeOptions.get_children()

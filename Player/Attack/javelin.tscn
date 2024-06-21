@@ -1,11 +1,11 @@
 [gd_scene load_steps=5 format=3 uid="uid://cr4wh8k8gaysv"]
 
-[ext_resource type="Texture2D" uid="uid://d22bl2j2hb3d1" path="res://Textures/Items/Weapons/javelin_3_new.png" id="1_rbe4t"]
 [ext_resource type="Script" path="res://Player/Attack/javelin.gd" id="1_ro7n8"]
-[ext_resource type="AudioStream" uid="uid://ckro6v281rcab" path="res://Audio/SoundEffect/woosh.wav" id="3_6kycs"]
+[ext_resource type="Texture2D" uid="uid://c0gs60vethant" path="res://Textures/Items/Weapons/magic_javelin.png" id="2_u1pgr"]
+[ext_resource type="AudioStream" uid="uid://b81tib5fn3cx0" path="res://Audio/SoundEffect/whoosh.wav" id="3_2p3m0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5ojwf"]
-size = Vector2(4.24264, 32.5269)
+size = Vector2(9.89949, 21.9203)
 
 [node name="Javelin" type="Area2D" groups=["attack"]]
 top_level = true
@@ -14,10 +14,10 @@ collision_mask = 0
 script = ExtResource("1_ro7n8")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_rbe4t")
+texture = ExtResource("2_u1pgr")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-0.5, -0.5)
+position = Vector2(-4.25, -4.25)
 rotation = -0.785398
 shape = SubResource("RectangleShape2D_5ojwf")
 disabled = true
@@ -37,7 +37,7 @@ wait_time = 3.0
 autostart = true
 
 [node name="snd_attack" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("3_6kycs")
+stream = ExtResource("3_2p3m0")
 
 [connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]
 [connection signal="timeout" from="ChangeDirection" to="." method="_on_change_direction_timeout"]

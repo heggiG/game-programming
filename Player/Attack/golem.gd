@@ -16,40 +16,41 @@ var spr_golem = preload("res://Textures/Items/Weapons/golem.png")
 signal remove_from_array(object)
 
 func _ready():
-	angle = global_position.direction_to(target)
-	rotation = angle.angle() + deg_to_rad(135)
+	#angle = global_position.direction_to(target)
+	#rotation = angle.angle() + deg_to_rad(135)
 	match level:
 		1:
-			hp = 9999
-			speed = 100.0
+			hp = 5
+			speed = 10.0
 			damage = 15
 			knockback_amount = 150
 			attack_size = 1.0 * (1 + player.spell_size)
 		2:
-			hp = 9999
-			speed = 100.0
-			damage = 5
-			knockback_amount = 100
+			hp = 50
+			speed = 20.0
+			damage = 15
+			knockback_amount = 140
 			attack_size = 1.0 * (1 + player.spell_size)
 		3:
-			hp = 9999
-			speed = 100.0
-			damage = 5
-			knockback_amount = 100
+			hp = 70
+			speed = 30.0
+			damage = 15
+			knockback_amount = 130
 			attack_size = 1.0 * (1 + player.spell_size)
 		4:
-			hp = 9999
-			speed = 100.0
-			damage = 5
+			hp = 100
+			speed = 50.0
+			damage = 25
 			knockback_amount = 125
 			attack_size = 1.0 * (1 + player.spell_size)
 			
-	var tween = create_tween()
-	tween.tween_property(self,"scale",Vector2(1,1)*attack_size,1).set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
-	tween.play()
+	#var tween = create_tween()
+	#tween.tween_property(self,"scale",Vector2(1,1)*attack_size,1).set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
+	#tween.play()
 
 func _physics_process(delta):
-	position += angle*speed*delta
+	##position += angle*speed*delta
+	pass
 	
 func enemy_hit(charge = 1):
 	hp -= charge

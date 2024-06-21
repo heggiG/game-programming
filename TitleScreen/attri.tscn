@@ -1,0 +1,58 @@
+[gd_scene load_steps=3 format=3 uid="uid://dndkjn71akbcg"]
+
+[ext_resource type="Script" path="res://TitleScreen/attri.gd" id="1_75lif"]
+[ext_resource type="PackedScene" uid="uid://b7c7gsdx2rkjm" path="res://Utility/basic_button.tscn" id="1_yyytl"]
+
+[node name="Attributions" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_75lif")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+custom_minimum_size = Vector2(640, 360)
+layout_mode = 0
+offset_right = 640.0
+offset_bottom = 360.0
+color = Color(0.192935, 0.677116, 0.831106, 1)
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 273.0
+offset_top = 16.0
+offset_right = 367.0
+offset_bottom = 39.0
+text = "Attributions"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 45.0
+offset_right = 605.0
+offset_bottom = 320.0
+text = "															Music
+Celtic Battle (King Arthur’s Revenge) by Robo Music Studios
+cartoon air swoosh 6 by nezuai (freesound.org)
+															Icons
+Shikashi's Fantasy Icons by Matt Firth (shikashipx) & game-icons.net
+RPG Nature Tileset - Seasons by Stealthix
+Medieval weapons pack by PixelHole
+Lively NPCs by chierit
+Icons found @ <creator>.itch.io
+Menu Image: rock in a felid (pixel art) by Uranium9 (deviantart)
+															Tutorials, bug hunting, examples, etc.
+BrannoDev, GDQuest, Muddy Wolf,"
+fit_content = true
+
+[node name="btn_returnmenu" parent="." instance=ExtResource("1_yyytl")]
+layout_mode = 0
+offset_left = 280.0
+offset_top = 320.0
+offset_right = 360.0
+offset_bottom = 350.0
+text = "Menu"
+
+[connection signal="click_end" from="btn_returnmenu" to="." method="_on_btn_returnmenu_click_end"]

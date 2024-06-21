@@ -1,7 +1,7 @@
 [gd_scene load_steps=12 format=3 uid="uid://bok7kd2psi5gl"]
 
 [ext_resource type="Script" path="res://Enemy/enemy.gd" id="1_c35cp"]
-[ext_resource type="Texture2D" uid="uid://b4tu8mxdnvsy1" path="res://Textures/Enemy/cyclops.png" id="2_qrtfd"]
+[ext_resource type="Texture2D" uid="uid://bhoyoa2v66bec" path="res://Textures/Enemy/cyclops.png" id="2_qrtfd"]
 [ext_resource type="PackedScene" uid="uid://xy3cvpwdy828" path="res://Utility/hurt_box.tscn" id="3_4pchf"]
 [ext_resource type="PackedScene" uid="uid://uhr6mtuisqm1" path="res://Utility/hit_box.tscn" id="4_kwfkt"]
 [ext_resource type="AudioStream" uid="uid://bi7t7cjthnhhc" path="res://Audio/SoundEffect/enemy_hit.ogg" id="5_f6kha"]
@@ -49,10 +49,10 @@ _data = {
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rborl"]
-size = Vector2(28, 31)
+size = Vector2(24, 25)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ucec4"]
-size = Vector2(19, 25)
+size = Vector2(19, 23)
 
 [node name="enemy_cyclops" type="CharacterBody2D"]
 collision_layer = 5
@@ -67,7 +67,7 @@ enemy_damage = 5
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_qrtfd")
-hframes = 2
+hframes = 5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_24u87")
@@ -82,7 +82,7 @@ collision_mask = 4
 HurtBoxType = 1
 
 [node name="CollisionShape2D" parent="HurtBox" index="0"]
-position = Vector2(0, 0.5)
+position = Vector2(1, 0.5)
 shape = SubResource("RectangleShape2D_rborl")
 
 [node name="HitBox" parent="." instance=ExtResource("4_kwfkt")]

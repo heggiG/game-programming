@@ -1,0 +1,41 @@
+[gd_scene format=3 uid="uid://dndkjn71akbcg"]
+
+[node name="Attributions" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="."]
+custom_minimum_size = Vector2(640, 360)
+layout_mode = 0
+offset_right = 640.0
+offset_bottom = 360.0
+color = Color(0.192935, 0.677116, 0.831106, 1)
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 294.0
+offset_top = 16.0
+offset_right = 388.0
+offset_bottom = 39.0
+text = "Attributions"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 65.0
+offset_right = 605.0
+offset_bottom = 355.0
+text = "															Music
+Celtic Battle (King Arthur’s Revenge) by Robo Music Studios
+															Icons
+Shikashi's Fantasy Icons by Matt Firth (shikashipx) & game-icons.net
+RPG Nature Tileset - Seasons by Stealthix
+Medieval weapons pack by PixelHole
+Lively NPCs by chierit
+Icons found @ <creator>.itch.io
+															Tutorials & bug hunting
+BrannoDev, GDQuest, "

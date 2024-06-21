@@ -1,11 +1,11 @@
 [gd_scene load_steps=5 format=3 uid="uid://wpliv06gy0pq"]
 
 [ext_resource type="Script" path="res://Player/Attack/ice_spear.gd" id="1_4el3j"]
-[ext_resource type="Texture2D" uid="uid://jjt1rh5e2jcp" path="res://Textures/Items/Weapons/ice_spear.png" id="1_nhh0e"]
+[ext_resource type="Texture2D" uid="uid://lmql5a6312yx" path="res://Textures/Items/Weapons/drill.png" id="2_eq1n0"]
 [ext_resource type="AudioStream" uid="uid://cl3g2vts3nyt0" path="res://Audio/SoundEffect/ice.wav" id="3_esswn"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_p4tiy"]
-size = Vector2(6.36396, 33.234)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kexqm"]
+size = Vector2(14.1421, 21.2132)
 
 [node name="IceSpear" type="Area2D" groups=["attack"]]
 top_level = true
@@ -15,12 +15,12 @@ collision_mask = 0
 script = ExtResource("1_4el3j")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_nhh0e")
+texture = ExtResource("2_eq1n0")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0.500001, -0.999999)
+position = Vector2(-5, -5)
 rotation = -0.785398
-shape = SubResource("RectangleShape2D_p4tiy")
+shape = SubResource("RectangleShape2D_kexqm")
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 10.0

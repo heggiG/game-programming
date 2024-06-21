@@ -2,9 +2,9 @@ extends Area2D
 
 @export var experience = 1
 
-var spr_green = preload("res://Textures/Items/Gems/Gem_green.png")
-var spr_blue= preload("res://Textures/Items/Gems/Gem_blue.png")
-var spr_red = preload("res://Textures/Items/Gems/Gem_red.png")
+var spr_green = preload("res://Textures/Items/Gems/xp_green.png")
+var spr_blue= preload("res://Textures/Items/Gems/xp_blue.png")
+var spr_red = preload("res://Textures/Items/Gems/xp_orange.png")
 
 var target = null
 var speed = -1

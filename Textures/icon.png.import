@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://blmpm0dmj6hw"
-path="res://.godot/imported/golem.png-9877db99ccdfed7b40b0ef9798f1f722.ctex"
+uid="uid://0mdt21sfwq64"
+path="res://.godot/imported/icon.png-978e27f0ae1614ea0b09d48180500d06.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Textures/Items/Upgrades/golem.png"
-dest_files=["res://.godot/imported/golem.png-9877db99ccdfed7b40b0ef9798f1f722.ctex"]
+source_file="res://Textures/icon.png"
+dest_files=["res://.godot/imported/icon.png-978e27f0ae1614ea0b09d48180500d06.ctex"]
 
 [params]
 

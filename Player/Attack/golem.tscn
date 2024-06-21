@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://e4mil5td0l8p"]
+
+[ext_resource type="Script" path="res://Player/Attack/golem.gd" id="1_n264g"]
+[ext_resource type="Texture2D" uid="uid://blmpm0dmj6hw" path="res://Textures/Items/Weapons/golem.png" id="2_vd80u"]
+[ext_resource type="AudioStream" uid="uid://d31cfvuh0cbff" path="res://Audio/SoundEffect/golem.wav" id="3_872wd"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hmwpm"]
+radius = 13.0
+
+[node name="Golem" type="Area2D"]
+script = ExtResource("1_n264g")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_vd80u")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -1)
+shape = SubResource("CircleShape2D_hmwpm")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 20.0
+autostart = true
+
+[node name="snd_attack" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_872wd")
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

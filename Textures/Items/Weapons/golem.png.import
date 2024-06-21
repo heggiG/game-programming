@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dn3yoivlote7i"
-path="res://.godot/imported/tornado.png-84bd3c437635d0edcdda9f5a76ecfe31.ctex"
+uid="uid://blmpm0dmj6hw"
+path="res://.godot/imported/golem.png-f88911051b147ad1dad4274292639e0d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Textures/Items/Weapons/tornado.png"
-dest_files=["res://.godot/imported/tornado.png-84bd3c437635d0edcdda9f5a76ecfe31.ctex"]
+source_file="res://Textures/Items/Weapons/golem.png"
+dest_files=["res://.godot/imported/golem.png-f88911051b147ad1dad4274292639e0d.ctex"]
 
 [params]
 

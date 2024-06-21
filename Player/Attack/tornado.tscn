@@ -1,8 +1,10 @@
 [gd_scene load_steps=5 format=3 uid="uid://bis78tmxnqw4c"]
 
-[ext_resource type="Texture2D" uid="uid://c5y0r4crcqjdp" path="res://Textures/Items/Weapons/tornado.png" id="1_7stu1"]
 [ext_resource type="Script" path="res://Player/Attack/tornado.gd" id="1_x0aq0"]
-[ext_resource type="AudioStream" uid="uid://r7omweq2u12i" path="res://Audio/SoundEffect/tornado.ogg" id="3_ihvf8"]
+[ext_resource type="AudioStream" uid="uid://b81tib5fn3cx0" path="res://Audio/SoundEffect/whoosh.wav" id="2_0cyh7"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_6mjwm"]
+load_path = "res://.godot/imported/tornado.png-84bd3c437635d0edcdda9f5a76ecfe31.ctex"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dd51k"]
 size = Vector2(17, 26)
@@ -15,7 +17,7 @@ collision_mask = 0
 script = ExtResource("1_x0aq0")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_7stu1")
+texture = SubResource("CompressedTexture2D_6mjwm")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0.5, 1)
@@ -26,7 +28,7 @@ wait_time = 20.0
 autostart = true
 
 [node name="snd_attack" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("3_ihvf8")
+stream = ExtResource("2_0cyh7")
 autoplay = true
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

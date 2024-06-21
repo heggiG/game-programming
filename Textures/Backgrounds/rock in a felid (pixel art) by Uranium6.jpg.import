@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d22bl2j2hb3d1"
-path="res://.godot/imported/javelin_3_new.png-c2a8e5e6f63e6b577a700a48807a6b39.ctex"
+uid="uid://cgpi76f515lv2"
+path="res://.godot/imported/rock in a felid (pixel art) by Uranium6.jpg-cd77c5815282614e6c06cf6b63a9748a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Textures/Items/Weapons/javelin_3_new.png"
-dest_files=["res://.godot/imported/javelin_3_new.png-c2a8e5e6f63e6b577a700a48807a6b39.ctex"]
+source_file="res://Textures/Backgrounds/rock in a felid (pixel art) by Uranium6.jpg"
+dest_files=["res://.godot/imported/rock in a felid (pixel art) by Uranium6.jpg-cd77c5815282614e6c06cf6b63a9748a.ctex"]
 
 [params]
 

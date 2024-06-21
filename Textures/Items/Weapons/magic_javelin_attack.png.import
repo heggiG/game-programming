@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dn3yoivlote7i"
-path="res://.godot/imported/tornado.png-84bd3c437635d0edcdda9f5a76ecfe31.ctex"
+uid="uid://b4521xskdum61"
+path="res://.godot/imported/magic_javelin_attack.png-f04953318c9a806e03231f3785abf769.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Textures/Items/Weapons/tornado.png"
-dest_files=["res://.godot/imported/tornado.png-84bd3c437635d0edcdda9f5a76ecfe31.ctex"]
+source_file="res://Textures/Items/Weapons/magic_javelin_attack.png"
+dest_files=["res://.godot/imported/magic_javelin_attack.png-f04953318c9a806e03231f3785abf769.ctex"]
 
 [params]
 

@@ -78,7 +78,7 @@ var enemy_close = []
 signal playerdeath
 
 func _ready():
-	upgrade_character("icespear1")
+	upgrade_character("golem")
 	attack()
 	set_expbar(experience, calculate_experiencecap())
 	_on_hurt_box_hurt(0,0,0)

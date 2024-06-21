@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Objects/experience_gem.gd" id="1_k4pfj"]
 [ext_resource type="Texture2D" uid="uid://c1wquqr16tbfi" path="res://Textures/Items/Gems/xp_green.png" id="2_j3ohv"]
-[ext_resource type="AudioStream" uid="uid://bnm8cttqwefdx" path="res://Audio/SoundEffect/collectgem.mp3" id="3_g1t57"]
+[ext_resource type="AudioStream" uid="uid://bx5i1lqshhmgd" path="res://Audio/SoundEffect/collect_xp.wav" id="3_uaidi"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wytta"]
 size = Vector2(26, 24)
@@ -21,7 +21,7 @@ position = Vector2(1, 0)
 shape = SubResource("RectangleShape2D_wytta")
 
 [node name="snd_collected" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("3_g1t57")
+stream = ExtResource("3_uaidi")
 volume_db = -10.0
 
 [connection signal="finished" from="snd_collected" to="." method="_on_snd_collected_finished"]

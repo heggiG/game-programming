@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cr4icyo1dm7oc"
-path="res://.godot/imported/javelin_3_new_attack.png-830d039410fc8e4042b2ab08a0ef517e.ctex"
+uid="uid://c0gs60vethant"
+path="res://.godot/imported/magic_javelin.png-a0d1041c01efbd0d662032137fefc188.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Textures/Items/Weapons/javelin_3_new_attack.png"
-dest_files=["res://.godot/imported/javelin_3_new_attack.png-830d039410fc8e4042b2ab08a0ef517e.ctex"]
+source_file="res://Textures/Items/Weapons/magic_javelin.png"
+dest_files=["res://.godot/imported/magic_javelin.png-a0d1041c01efbd0d662032137fefc188.ctex"]
 
 [params]
 

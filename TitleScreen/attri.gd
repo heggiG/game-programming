@@ -1,11 +1,6 @@
-extends Node
+extends Control
 
+var menu_level = "res://TitleScreen/menu.tscn"
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
+func _on_btn_returnmenu_click_end():
+	var _level = get_tree().change_scene_to_file(menu_level)

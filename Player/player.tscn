@@ -253,6 +253,8 @@ columns = 10
 wait_time = 0.3
 one_shot = true
 
+[node name="trackingLengthTimer" type="Timer" parent="."]
+
 [connection signal="hurt" from="HurtBox" to="." method="_on_hurt_box_hurt"]
 [connection signal="timeout" from="Attack/IceSpearTimer" to="." method="_on_ice_spear_timer_timeout"]
 [connection signal="timeout" from="Attack/IceSpearTimer/IceSpearAttackTimer" to="." method="_on_ice_spear_attack_timer_timeout"]

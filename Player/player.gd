@@ -66,6 +66,8 @@ var tracking = false
 @onready var trackingTimer = $trackingTimer
 var trackingButtonEnabled = true
 var trackedPoints = []
+var time_start
+var time_end
 
 @onready var sprite = $Sprite2D
 @onready var walkTimer = get_node("%walkTimer")
@@ -103,10 +105,13 @@ func _physics_process(delta):
 
 func movement():
 	if (Input.get_action_strength("start-elemental-attack") > 0 && trackingButtonEnabled):
+		if !tracking: # first press
+			time_start = Time.get_ticks_msec()
 		trackingButtonEnabled = false
-		tracking = !tracking
+		tracking = !tracking # switch tracking state
 		trackingTimer.start()
-		if !tracking:
+		if !tracking: # second press
+			time_end = Time.get_ticks_msec()
 			find_elemental_attack()
 			trackedPoints = []
 	
@@ -136,9 +141,14 @@ func movement():
 	move_and_slide()
 
 func find_elemental_attack():
-	var elementalTemplate = [[Vector2(1.0, 0.0), Vector2(0.0, 1.0), Vector2(-1.0, 0.0)]]
-	if elementalTemplate.has(trackedPoints.filter(filter_array)):
+	var strength = ((time_end - time_start) / 1000) / 4 # time passed in seconds divided by 4
+	var filtered_points = trackedPoints.filter(filter_array);
+	if [Vector2(1.0, 0.0), Vector2(0.0, 1.0), Vector2(-1.0, 0.0)] == filtered_points: # ice attack
+		get_tree().call_group("enemies", "global_attack", 0, strength)
 		print_debug("Elemental1")
+	elif [Vector2(-1.0, 0.0), Vector2(0.0, -1.0), Vector2(1.0, 0.0)] == filtered_points: # confusion attack
+		get_tree().call_group("enemies", "global_attack", 1, strength)
+		
 	pass
 
 func filter_array(vec):
@@ -441,3 +451,4 @@ func _on_btn_menu_click_end():
 
 func _on_tracking_timer_timeout():
 	trackingButtonEnabled = true
+

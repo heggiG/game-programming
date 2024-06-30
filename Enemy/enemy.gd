@@ -9,17 +9,24 @@ extends CharacterBody2D
 var knockback = Vector2.ZERO
 
 @onready var player = get_tree().get_first_node_in_group("player")
+#player.connect("global", self, "take_damage")
 @onready var loot_base = get_tree().get_first_node_in_group("loot")
 @onready var sprite = $Sprite2D
 @onready var anim = $AnimationPlayer
 @onready var snd_hit = $snd_hit
 @onready var hitBox = $HitBox
+@onready var freezeTimer = $globalFreezeTimer
+@onready var confusion_timer = $globalConfusionTimer
 
 var death_anim = preload("res://Enemy/explosion.tscn")
 var exp_gem = preload("res://Objects/experience_gem.tscn")
 
+var global_strength = 0
+
 signal remove_from_array(object)
 
+func take_damage(amount):
+	hp -= amount
 
 func _ready():
 	anim.play("walk")
@@ -56,3 +63,21 @@ func _on_hurt_box_hurt(damage, angle, knockback_amount):
 		death()
 	else:
 		snd_hit.play()
+		
+		
+func global_attack(type, strength):
+	global_strength = strength
+	if type == 0:
+		movement_speed *= clampf(0.5 / global_strength, 0.0, 1.0);
+		freezeTimer.start();
+	if type == 1:
+		movement_speed *= -global_strength;
+		confusion_timer.start();
+		
+	pass
+
+func _on_global_freeze_timer_timeout():
+	movement_speed /= 0.5 / global_strength;
+
+func _on_global_confusion_timer_timeout():
+	movement_speed /= -global_strength

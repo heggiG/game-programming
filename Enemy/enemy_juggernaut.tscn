@@ -54,7 +54,7 @@ size = Vector2(28, 31)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ucec4"]
 size = Vector2(21, 26)
 
-[node name="enemy_juggernaut" type="CharacterBody2D"]
+[node name="enemy_juggernaut" type="CharacterBody2D" groups=["enemies"]]
 collision_layer = 5
 collision_mask = 5
 motion_mode = 1
@@ -95,6 +95,10 @@ shape = SubResource("RectangleShape2D_ucec4")
 [node name="snd_hit" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("5_h3y3s")
 volume_db = -20.0
+
+[node name="globalFreezeTimer" type="Timer" parent="."]
+
+[node name="globalConfusionTimer" type="Timer" parent="."]
 
 [connection signal="hurt" from="HurtBox" to="." method="_on_hurt_box_hurt"]
 

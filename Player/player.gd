@@ -64,12 +64,15 @@ var enemy_close = []
 # Movement Tracker
 var tracking = false
 @onready var trackingTimer = $trackingTimer
+@onready var trackingCooldown = $trackingCooldown
 var trackingButtonEnabled = true
+var trackingOnCooldown = false
 var trackedPoints = []
 var time_start
 var time_end
 
 @onready var sprite = $Sprite2D
+@onready var activatedSprite = $ActivatedSprite2D
 @onready var walkTimer = get_node("%walkTimer")
 
 #GUI
@@ -98,19 +101,31 @@ func _ready():
 	attack()
 	set_expbar(experience, calculate_experiencecap())
 	_on_hurt_box_hurt(0,0,0)
+	activatedSprite.visible = false
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	movement()
 	
 
 func movement():
-	if (Input.get_action_strength("start-elemental-attack") > 0 && trackingButtonEnabled):
+	var current_sprite = sprite
+	if (Input.get_action_strength("start-elemental-attack") > 0 && trackingButtonEnabled && !trackingOnCooldown):
 		if !tracking: # first press
+			current_sprite = activatedSprite
+			activatedSprite.visible = true
+			sprite.visible = false
 			time_start = Time.get_ticks_msec()
+		
 		trackingButtonEnabled = false
 		tracking = !tracking # switch tracking state
+		
 		trackingTimer.start()
 		if !tracking: # second press
+			trackingOnCooldown = true
+			trackingCooldown.start()
+			current_sprite = sprite
+			activatedSprite.visible = false
+			sprite.visible = true
 			time_end = Time.get_ticks_msec()
 			find_elemental_attack()
 			trackedPoints = []
@@ -119,22 +134,21 @@ func movement():
 	var y_mov = Input.get_action_strength("down") - Input.get_action_strength("up")
 	var mov = Vector2(x_mov,y_mov)
 	if mov.x > 0:
-		sprite.flip_h = true
+		current_sprite.flip_h = true
 	elif mov.x < 0:
-		sprite.flip_h = false
+		current_sprite.flip_h = false
 	
 	if tracking:
 		if last_movement != mov.normalized() && mov.normalized() != Vector2.ZERO:
 			trackedPoints.append(mov.normalized())
-			print_debug(trackedPoints)
 	
 	if mov != Vector2.ZERO:
 		last_movement = mov
 		if walkTimer.is_stopped():
-			if sprite.frame >= sprite.hframes - 1:
-				sprite.frame = 0
+			if current_sprite.frame >= current_sprite.hframes - 1:
+				current_sprite.frame = 0
 			else:
-				sprite.frame += 1
+				current_sprite.frame += 1
 			walkTimer.start()
 	
 	velocity = mov.normalized()*movement_speed
@@ -290,7 +304,7 @@ func calculate_experiencecap():
 	if experience_level < 20:
 		exp_cap = experience_level*5
 	elif experience_level < 40:
-		exp_cap + 95 * (experience_level-19)*8
+		exp_cap = 95 * (experience_level-19)*8
 	else:
 		exp_cap = 255 + (experience_level-39)*12
 		
@@ -452,3 +466,5 @@ func _on_btn_menu_click_end():
 func _on_tracking_timer_timeout():
 	trackingButtonEnabled = true
 
+func _on_tracking_cooldown_timeout():
+	trackingOnCooldown = false

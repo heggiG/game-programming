@@ -1,8 +1,9 @@
-[gd_scene load_steps=18 format=3 uid="uid://dncgepmkc4jf4"]
+[gd_scene load_steps=19 format=3 uid="uid://dncgepmkc4jf4"]
 
 [ext_resource type="Script" path="res://Player/player.gd" id="1_37q80"]
 [ext_resource type="Texture2D" uid="uid://sqad20mrerop" path="res://Textures/Player/player_sprite.png" id="1_jefax"]
 [ext_resource type="PackedScene" uid="uid://xy3cvpwdy828" path="res://Utility/hurt_box.tscn" id="3_gs51i"]
+[ext_resource type="Texture2D" uid="uid://b8cv83mea6u1u" path="res://Textures/Player/player_sprite_activated.png" id="3_l6deb"]
 [ext_resource type="Texture2D" uid="uid://dx7xx6vfahxlq" path="res://Textures/GUI/exp_background.png" id="4_pbpj5"]
 [ext_resource type="Texture2D" uid="uid://dlx33roiu0vlj" path="res://Textures/GUI/exp_progress.png" id="5_5ive2"]
 [ext_resource type="FontFile" uid="uid://cb4e8g30xxp5u" path="res://Font/tenderness.otf" id="6_okx7u"]
@@ -19,7 +20,7 @@ height = 16.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_24n25"]
 radius = 4.5
-height = 25.03
+height = 18.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_anwqc"]
 radius = 370.951
@@ -37,9 +38,14 @@ script = ExtResource("1_37q80")
 texture = ExtResource("1_jefax")
 hframes = 5
 
+[node name="ActivatedSprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("3_l6deb")
+hframes = 5
+
 [node name="Camera2D" type="Camera2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(2, 3)
 shape = SubResource("CapsuleShape2D_nffdp")
 
@@ -53,7 +59,7 @@ collision_mask = 2
 HurtBoxType = 2
 
 [node name="CollisionShape2D" parent="HurtBox" index="0"]
-position = Vector2(0.5, 2.5)
+position = Vector2(0, 6)
 shape = SubResource("CapsuleShape2D_24n25")
 
 [node name="Attack" type="Node2D" parent="."]
@@ -99,6 +105,7 @@ collision_layer = 0
 collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GrabArea"]
+visible = false
 shape = SubResource("CircleShape2D_p2554")
 
 [node name="CollectArea" type="Area2D" parent="."]
@@ -106,6 +113,7 @@ collision_layer = 0
 collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CollectArea"]
+visible = false
 shape = SubResource("CircleShape2D_6vwp8")
 
 [node name="GUILayer" type="CanvasLayer" parent="."]
@@ -255,6 +263,10 @@ one_shot = true
 
 [node name="trackingLengthTimer" type="Timer" parent="."]
 
+[node name="trackingCooldown" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
+
 [connection signal="hurt" from="HurtBox" to="." method="_on_hurt_box_hurt"]
 [connection signal="timeout" from="Attack/IceSpearTimer" to="." method="_on_ice_spear_timer_timeout"]
 [connection signal="timeout" from="Attack/IceSpearTimer/IceSpearAttackTimer" to="." method="_on_ice_spear_attack_timer_timeout"]
@@ -268,5 +280,6 @@ one_shot = true
 [connection signal="area_entered" from="CollectArea" to="." method="_on_collect_area_area_entered"]
 [connection signal="click_end" from="GUILayer/GUI/DeathPanel/btn_menu" to="." method="_on_btn_menu_click_end"]
 [connection signal="timeout" from="trackingTimer" to="." method="_on_tracking_timer_timeout"]
+[connection signal="timeout" from="trackingCooldown" to="." method="_on_tracking_cooldown_timeout"]
 
 [editable path="HurtBox"]

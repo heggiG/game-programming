@@ -22,8 +22,7 @@ signal remove_from_array(object)
 @onready var player = get_tree().get_first_node_in_group("player")
 
 func _ready():
-	#angle = global_position.direction_to(target)
-	#rotation = angle.angle() + deg_to_rad(135)
+	rotation = angle.angle() + deg_to_rad(135)
 	match level:
 		1:
 			hp = 5
@@ -97,6 +96,7 @@ func _ready():
 	tween.play()
 
 func _physics_process(delta):
+	angle = player.velocity.normalized() * -1
 	position += angle*speed*delta
 	
 	

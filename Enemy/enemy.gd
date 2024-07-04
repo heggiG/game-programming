@@ -8,8 +8,9 @@ extends CharacterBody2D
 @export var enemy_damage = 1
 var knockback = Vector2.ZERO
 
+var initial_mov_speed
+
 @onready var player = get_tree().get_first_node_in_group("player")
-#player.connect("global", self, "take_damage")
 @onready var loot_base = get_tree().get_first_node_in_group("loot")
 @onready var sprite = $Sprite2D
 @onready var anim = $AnimationPlayer
@@ -31,6 +32,7 @@ func take_damage(amount):
 func _ready():
 	anim.play("walk")
 	hitBox.damage = enemy_damage
+	initial_mov_speed = movement_speed
 
 func _physics_process(_delta):
 	knockback = knockback.move_toward(Vector2.ZERO, knockback_recovery)
@@ -71,13 +73,16 @@ func global_attack(type, strength):
 		movement_speed *= clampf(0.5 / global_strength, 0.0, 1.0);
 		freezeTimer.start();
 	if type == 1:
-		movement_speed *= -global_strength;
+		movement_speed *= clampf(-global_strength, -100000.0, -1.0)
 		confusion_timer.start();
+	if type == 2:
+		hp -= global_strength * 2
+		if hp <= 0.0:
+			death()
 		
-	pass
 
 func _on_global_freeze_timer_timeout():
-	movement_speed /= 0.5 / global_strength;
+	movement_speed = movement_speed / (0.5 / global_strength);
 
 func _on_global_confusion_timer_timeout():
-	movement_speed /= -global_strength
+	movement_speed = initial_mov_speed

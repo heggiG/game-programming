@@ -167,7 +167,8 @@ func find_elemental_attack():
 	elif [Vector2(-1.0, 0.0), Vector2(1.0, 0.0), Vector2(0.0, -1.0), Vector2(0.0, 1.0)] == filtered_points:
 		print_debug("Elemental4")
 		previous_speed = movement_speed
-		movement_speed = movement_speed * clampf(strength, 4, 20000.0)
+		movement_speed = movement_speed * clampf(strength, 1.2, 20000.0)
+		moveSpeedTimer.start()
 	pass
 
 func filter_array(vec: Vector2):

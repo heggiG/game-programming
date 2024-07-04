@@ -70,6 +70,8 @@ var trackingOnCooldown = false
 var trackedPoints = []
 var time_start
 var time_end
+var previous_speed
+@onready var moveSpeedTimer = $movSpeedBuffTimer
 
 @onready var sprite = $Sprite2D
 @onready var activatedSprite = $ActivatedSprite2D
@@ -155,18 +157,22 @@ func movement():
 	move_and_slide()
 
 func find_elemental_attack():
-	var strength = ((time_end - time_start) / 1000) / 4 # time passed in seconds divided by 4
+	var strength = ((time_end - time_start) / 4000) # time passed in seconds divided by 4
 	var filtered_points = trackedPoints.filter(filter_array);
 	if [Vector2(1.0, 0.0), Vector2(0.0, 1.0), Vector2(-1.0, 0.0)] == filtered_points: # ice attack
 		get_tree().call_group("enemies", "global_attack", 0, strength)
 		print_debug("Elemental1")
 	elif [Vector2(-1.0, 0.0), Vector2(0.0, -1.0), Vector2(1.0, 0.0)] == filtered_points: # confusion attack
 		get_tree().call_group("enemies", "global_attack", 1, strength)
-		
+	elif [Vector2(0.0, -1.0), Vector2(0.0, 1.0), Vector2(0.0, -1.0)] == filtered_points: # flat damage attack
+		get_tree().call_group("enemies", "global_attack", 2, strength)
+	elif [Vector2(-1.0, 0.0), Vector2(1.0, 0.0), Vector2(0.0, -1.0), Vector2(0.0, 1.0)] == filtered_points:
+		previous_speed = movement_speed
+		movement_speed *= clampf(strength, 1.1, 20000.0)
 	pass
 
-func filter_array(vec):
-	return vec.length() == 1.0
+func filter_array(vec: Vector2):
+	return vec.x == 1.0 || vec.y == 1.0
 
 func attack():
 	if icespear_level > 0:
@@ -468,3 +474,7 @@ func _on_tracking_timer_timeout():
 
 func _on_tracking_cooldown_timeout():
 	trackingOnCooldown = false
+
+
+func _on_mov_speed_buff_timer_timeout():
+	movement_speed = previous_speed

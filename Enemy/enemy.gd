@@ -82,7 +82,7 @@ func global_attack(type, strength):
 		
 
 func _on_global_freeze_timer_timeout():
-	movement_speed = movement_speed / (0.5 / global_strength);
+	movement_speed = initial_mov_speed;
 
 func _on_global_confusion_timer_timeout():
 	movement_speed = initial_mov_speed

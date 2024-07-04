@@ -1,9 +1,9 @@
-[gd_scene load_steps=19 format=3 uid="uid://dncgepmkc4jf4"]
+[gd_scene load_steps=20 format=3 uid="uid://dncgepmkc4jf4"]
 
 [ext_resource type="Script" path="res://Player/player.gd" id="1_37q80"]
 [ext_resource type="Texture2D" uid="uid://sqad20mrerop" path="res://Textures/Player/player_sprite.png" id="1_jefax"]
+[ext_resource type="Shader" path="res://Player/outline.gdshader" id="2_k247g"]
 [ext_resource type="PackedScene" uid="uid://xy3cvpwdy828" path="res://Utility/hurt_box.tscn" id="3_gs51i"]
-[ext_resource type="Texture2D" uid="uid://b8cv83mea6u1u" path="res://Textures/Player/player_sprite_activated.png" id="3_l6deb"]
 [ext_resource type="Texture2D" uid="uid://dx7xx6vfahxlq" path="res://Textures/GUI/exp_background.png" id="4_pbpj5"]
 [ext_resource type="Texture2D" uid="uid://dlx33roiu0vlj" path="res://Textures/GUI/exp_progress.png" id="5_5ive2"]
 [ext_resource type="FontFile" uid="uid://cb4e8g30xxp5u" path="res://Font/tenderness.otf" id="6_okx7u"]
@@ -13,6 +13,12 @@
 [ext_resource type="AudioStream" uid="uid://bnv76nm5171dn" path="res://Audio/SoundEffect/Victory.wav" id="10_rwm3p"]
 [ext_resource type="AudioStream" uid="uid://bjvh3kw6gr6cq" path="res://Audio/SoundEffect/fail horn.wav" id="11_2anq1"]
 [ext_resource type="PackedScene" uid="uid://b7c7gsdx2rkjm" path="res://Utility/basic_button.tscn" id="12_i8esf"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_j4h56"]
+shader = ExtResource("2_k247g")
+shader_parameter/outline_width = 1.0
+shader_parameter/outline_color = Color(0.364706, 0.564706, 1, 0.509804)
+shader_parameter/turned_on = false
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nffdp"]
 radius = 4.0
@@ -35,11 +41,8 @@ motion_mode = 1
 script = ExtResource("1_37q80")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_j4h56")
 texture = ExtResource("1_jefax")
-hframes = 5
-
-[node name="ActivatedSprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("3_l6deb")
 hframes = 5
 
 [node name="Camera2D" type="Camera2D" parent="."]

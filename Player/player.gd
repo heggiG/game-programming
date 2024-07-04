@@ -74,7 +74,6 @@ var previous_speed
 @onready var moveSpeedTimer = $movSpeedBuffTimer
 
 @onready var sprite = $Sprite2D
-@onready var activatedSprite = $ActivatedSprite2D
 @onready var walkTimer = get_node("%walkTimer")
 
 #GUI
@@ -103,7 +102,6 @@ func _ready():
 	attack()
 	set_expbar(experience, calculate_experiencecap())
 	_on_hurt_box_hurt(0,0,0)
-	activatedSprite.visible = false
 
 func _physics_process(_delta):
 	movement()
@@ -113,21 +111,17 @@ func movement():
 	var current_sprite = sprite
 	if (Input.get_action_strength("start-elemental-attack") > 0 && trackingButtonEnabled && !trackingOnCooldown):
 		if !tracking: # first press
-			current_sprite = activatedSprite
-			activatedSprite.visible = true
-			sprite.visible = false
 			time_start = Time.get_ticks_msec()
+			sprite.material.set_shader_parameter("turned_on", true)
 		
 		trackingButtonEnabled = false
 		tracking = !tracking # switch tracking state
 		
 		trackingTimer.start()
 		if !tracking: # second press
+			sprite.material.set_shader_parameter("turned_on", false)
 			trackingOnCooldown = true
 			trackingCooldown.start()
-			current_sprite = sprite
-			activatedSprite.visible = false
-			sprite.visible = true
 			time_end = Time.get_ticks_msec()
 			find_elemental_attack()
 			trackedPoints = []
@@ -157,6 +151,8 @@ func movement():
 	move_and_slide()
 
 func find_elemental_attack():
+	print_debug(trackedPoints)
+	print_debug("Finding attack...")
 	var strength = ((time_end - time_start) / 4000) # time passed in seconds divided by 4
 	var filtered_points = trackedPoints.filter(filter_array);
 	if [Vector2(1.0, 0.0), Vector2(0.0, 1.0), Vector2(-1.0, 0.0)] == filtered_points: # ice attack
@@ -164,15 +160,18 @@ func find_elemental_attack():
 		print_debug("Elemental1")
 	elif [Vector2(-1.0, 0.0), Vector2(0.0, -1.0), Vector2(1.0, 0.0)] == filtered_points: # confusion attack
 		get_tree().call_group("enemies", "global_attack", 1, strength)
+		print_debug("Elemental2")
 	elif [Vector2(0.0, -1.0), Vector2(0.0, 1.0), Vector2(0.0, -1.0)] == filtered_points: # flat damage attack
 		get_tree().call_group("enemies", "global_attack", 2, strength)
+		print_debug("Elemental3")
 	elif [Vector2(-1.0, 0.0), Vector2(1.0, 0.0), Vector2(0.0, -1.0), Vector2(0.0, 1.0)] == filtered_points:
+		print_debug("Elemental4")
 		previous_speed = movement_speed
-		movement_speed *= clampf(strength, 1.1, 20000.0)
+		movement_speed = movement_speed * clampf(strength, 4, 20000.0)
 	pass
 
 func filter_array(vec: Vector2):
-	return vec.x == 1.0 || vec.y == 1.0
+	return vec.length() == 1.0
 
 func attack():
 	if icespear_level > 0:

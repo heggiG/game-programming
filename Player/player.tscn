@@ -260,6 +260,16 @@ offset_right = 208.0
 offset_bottom = 56.0
 columns = 10
 
+[node name="TrackingCooldownBar" type="ProgressBar" parent="GUILayer/GUI"]
+layout_mode = 0
+offset_left = 625.0
+offset_top = 33.0
+offset_right = 636.0
+offset_bottom = 347.0
+max_value = 10.0
+fill_mode = 2
+show_percentage = false
+
 [node name="trackingTimer" type="Timer" parent="."]
 wait_time = 0.3
 one_shot = true

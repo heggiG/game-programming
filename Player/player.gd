@@ -72,6 +72,7 @@ var time_start
 var time_end
 var previous_speed
 @onready var moveSpeedTimer = $movSpeedBuffTimer
+@onready var trackingCooldownBar = $GUILayer/GUI/TrackingCooldownBar
 
 @onready var sprite = $Sprite2D
 @onready var walkTimer = get_node("%walkTimer")
@@ -105,6 +106,7 @@ func _ready():
 
 func _physics_process(_delta):
 	movement()
+	trackingCooldownBar.value = trackingCooldown.time_left
 	
 
 func movement():
@@ -151,8 +153,6 @@ func movement():
 	move_and_slide()
 
 func find_elemental_attack():
-	print_debug(trackedPoints)
-	print_debug("Finding attack...")
 	var strength = ((time_end - time_start) / 4000) # time passed in seconds divided by 4
 	var filtered_points = trackedPoints.filter(filter_array);
 	if [Vector2(1.0, 0.0), Vector2(0.0, 1.0), Vector2(-1.0, 0.0)] == filtered_points: # ice attack

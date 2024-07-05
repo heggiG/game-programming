@@ -88,7 +88,7 @@ wait_time = 0.2
 
 [node name="ArrowTimer" type="Timer" parent="Attack"]
 unique_name_in_owner = true
-wait_time = 5.0
+wait_time = 1.5
 
 [node name="ArrowAttackTimer" type="Timer" parent="Attack/ArrowTimer"]
 unique_name_in_owner = true

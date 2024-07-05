@@ -32,19 +32,19 @@ func _ready():
 			knockback_amount = 150
 			attack_size = 1.0 * (1 + player.spell_size)
 		2:
-			hp = 50
+			hp = 7
 			speed = 20.0
 			damage = 15
 			knockback_amount = 140
 			attack_size = 1.0 * (1 + player.spell_size)
 		3:
-			hp = 70
+			hp = 10
 			speed = 30.0
 			damage = 15
 			knockback_amount = 130
 			attack_size = 1.0 * (1 + player.spell_size)
 		4:
-			hp = 100
+			hp = 15
 			speed = 50.0
 			damage = 25
 			knockback_amount = 125
@@ -94,6 +94,7 @@ func _ready():
 		#tween.tween_property(self,"angle", angle_more,2)
 		#tween.tween_property(self,"angle", angle_less,2)
 		#tween.tween_property(self,"angle", angle_more,2)
+	tween.tween_property(self,"scale",Vector2(1,1)*attack_size,1).set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
 	tween.play()
 
 func _physics_process(delta):

@@ -108,7 +108,7 @@ var previous_speed
 signal playerdeath
 
 func _ready():
-	upgrade_character("golem")
+	upgrade_character("icespear1")
 	attack()
 	set_expbar(experience, calculate_experiencecap())
 	_on_hurt_box_hurt(0,0,0)
@@ -380,7 +380,7 @@ func upgrade_character(upgrade):
 			icespear_baseammo += 2
 		"arrow1":
 			arrow_level = 1
-			arrow_baseammo += 2
+			arrow_baseammo += 1
 		"arrow2":
 			arrow_level = 2
 			arrow_baseammo += 2

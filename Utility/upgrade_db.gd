@@ -71,7 +71,7 @@ const UPGRADES = {
 	"arrow1": {
 		"icon": WEAPON_PATH + "arrow.png",
 		"displayname": "Arrow",
-		"details": "2 arrows are shot randomly",
+		"details": "1 arrow is shot randomly",
 		"level": "Level: 1",
 		"prerequisite": [],
 		"type": "weapon"
@@ -87,7 +87,7 @@ const UPGRADES = {
 	"arrow3": {
 		"icon": WEAPON_PATH + "arrow.png",
 		"displayname": "Arrow",
-		"details": "+ 2 arrows, + 2 damage, +20% knockback per attack",
+		"details": "+ 2 arrows, + 2.5 damage, +20% knockback per attack",
 		"level": "Level: 3",
 		"prerequisite": ["arrow2"],
 		"type": "weapon"
@@ -95,7 +95,7 @@ const UPGRADES = {
 	"arrow4": {
 		"icon": WEAPON_PATH + "arrow.png",
 		"displayname": "Arrow",
-		"details": "+ 2 arrows, + 2.5 damage, +20% knockback per attack",
+		"details": "+ 2 arrows, + 2 damage, +20% knockback, +1 penetration per attack",
 		"level": "Level: 4",
 		"prerequisite": ["arrow3"],
 		"type": "weapon"

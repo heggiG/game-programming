@@ -15,13 +15,11 @@ script = ExtResource("1_0mtsa")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 rotation = -0.785398
-scale = Vector2(1, 1)
 texture = ExtResource("2_pg5hq")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-5.75, -7.25)
 rotation = -0.785398
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_wqgi1")
 
 [node name="Timer" type="Timer" parent="."]

@@ -108,7 +108,7 @@ var previous_speed
 signal playerdeath
 
 func _ready():
-	upgrade_character("arrow1")
+	upgrade_character("golem")
 	attack()
 	set_expbar(experience, calculate_experiencecap())
 	_on_hurt_box_hurt(0,0,0)

@@ -22,7 +22,6 @@ signal remove_from_array(object)
 @onready var player = get_tree().get_first_node_in_group("player")
 
 func _ready():
-	rotation = angle.angle() + deg_to_rad(135)
 	match level:
 		1:
 			hp = 5
@@ -49,9 +48,6 @@ func _ready():
 			knockback_amount = 125
 			attack_size = 1.0 * (1 + player.spell_size)
 			
-	#var tween = create_tween()
-	#tween.tween_property(self,"scale",Vector2(1,1)*attack_size,1).set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
-	#tween.play()
 	var move_to_less = Vector2.ZERO
 	var move_to_more = Vector2.ZERO
 	match last_movement:
@@ -76,28 +72,10 @@ func _ready():
 	initital_tween.play()
 	
 	var tween = create_tween()
-	#var set_angle = randi_range(0,1)
-	#if set_angle == 1:
-		#angle = angle_less
-		#tween.tween_property(self,"angle", angle_more,2)
-		#tween.tween_property(self,"angle", angle_less,2)
-		#tween.tween_property(self,"angle", angle_more,2)
-		#tween.tween_property(self,"angle", angle_less,2)
-		#tween.tween_property(self,"angle", angle_more,2)
-		#tween.tween_property(self,"angle", angle_less,2)
-	#else:
-		#angle = angle_more
-		#tween.tween_property(self,"angle", angle_less,2)
-		#tween.tween_property(self,"angle", angle_more,2)
-		#tween.tween_property(self,"angle", angle_less,2)
-		#tween.tween_property(self,"angle", angle_more,2)
-		#tween.tween_property(self,"angle", angle_less,2)
-		#tween.tween_property(self,"angle", angle_more,2)
 	tween.tween_property(self,"scale",Vector2(1,1)*attack_size,1).set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
 	tween.play()
 
 func _physics_process(delta):
-	angle = player.velocity.normalized() * -1
 	position += angle*speed*delta
 	
 	

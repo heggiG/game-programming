@@ -1,5 +1,4 @@
-
-[gd_scene load_steps=19 format=3 uid="uid://dncgepmkc4jf4"]
+[gd_scene load_steps=21 format=3 uid="uid://dncgepmkc4jf4"]
 
 [ext_resource type="Script" path="res://Player/player.gd" id="1_37q80"]
 [ext_resource type="Texture2D" uid="uid://sqad20mrerop" path="res://Textures/Player/player_sprite.png" id="1_jefax"]
@@ -315,7 +314,6 @@ one_shot = true
 [node name="movSpeedBuffTimer" type="Timer" parent="."]
 wait_time = 4.0
 one_shot = true
-
 
 [connection signal="hurt" from="HurtBox" to="." method="_on_hurt_box_hurt"]
 [connection signal="timeout" from="Attack/IceSpearTimer" to="." method="_on_ice_spear_timer_timeout"]

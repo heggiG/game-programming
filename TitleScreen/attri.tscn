@@ -38,13 +38,13 @@ Celtic Battle (King Arthur’s Revenge) by Robo Music Studios
 cartoon air swoosh 6 by nezuai (freesound.org)
 															Icons
 Shikashi's Fantasy Icons by Matt Firth (shikashipx) & game-icons.net
-RPG Nature Tileset - Seasons by Stealthix
+Ninja Adventure Tielset by Pixel-Boy & AAA
 Medieval weapons pack by PixelHole
 Lively NPCs by chierit
 Icons found @ <creator>.itch.io
 Menu Image: rock in a felid (pixel art) by Uranium9 (deviantart)
 															Tutorials, bug hunting, examples, etc.
-BrannoDev, GDQuest, Muddy Wolf,"
+BrannoDev, GDQuest, Muddy Wolf, Kron, Chris' Tutorials"
 fit_content = true
 
 [node name="btn_returnmenu" parent="." instance=ExtResource("1_yyytl")]

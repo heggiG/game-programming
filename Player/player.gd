@@ -16,10 +16,13 @@ var iceSpear = preload("res://Player/Attack/ice_spear.tscn")
 var tornado = preload("res://Player/Attack/tornado.tscn")
 var javelin = preload("res://Player/Attack/javelin.tscn")
 var golem = preload("res://Player/Attack/golem.tscn")
+var arrow = preload("res://Player/Attack/arrow.tscn")
 
 #AttackNodes
 @onready var iceSpearTimer = get_node("%IceSpearTimer")
 @onready var iceSpearAttackTimer = get_node("%IceSpearAttackTimer")
+@onready var arrowTimer = get_node("%ArrowTimer")
+@onready var arrowAttackTimer = get_node("%ArrowAttackTimer")
 @onready var tornadoTimer = get_node("%TornadoTimer")
 @onready var tornadoAttackTimer = get_node("%TornadoAttackTimer")
 @onready var javelinBase = get_node("%JavelinBase")
@@ -41,6 +44,12 @@ var icespear_baseammo = 0
 var icespear_attackspeed = 1.5
 var icespear_level = 0
 
+#Arrow
+var arrow_ammo = 0
+var arrow_baseammo = 0
+var arrow_attackspeed = 0.8
+var arrow_level = 0
+
 #Golem
 var golem_ammo = 0
 var golem_baseammo = 0
@@ -50,7 +59,7 @@ var golem_level = 0
 #Tornado
 var tornado_ammo = 0
 var tornado_baseammo = 0
-var tornado_attackspeed = 3
+var tornado_attackspeed = 3.0
 var tornado_level = 0
 
 #Javelin
@@ -99,7 +108,7 @@ var previous_speed
 signal playerdeath
 
 func _ready():
-	upgrade_character("icespear1")
+	upgrade_character("arrow1")
 	attack()
 	set_expbar(experience, calculate_experiencecap())
 	_on_hurt_box_hurt(0,0,0)
@@ -189,6 +198,10 @@ func attack():
 		golemTimer.wait_time = golem_attackspeed * (1-spell_cooldown)
 		if golemTimer.is_stopped():
 			golemTimer.start()
+	if arrow_level > 0:
+		arrowTimer.wait_time = arrow_attackspeed * (1-spell_cooldown)
+		if arrowTimer.is_stopped():
+			arrowTimer.start()
 
 
 func _on_hurt_box_hurt(damage, _angle, _knockback):
@@ -202,7 +215,6 @@ func _on_ice_spear_timer_timeout():
 	icespear_ammo += icespear_baseammo + additional_attacks
 	iceSpearAttackTimer.start()
 
-
 func _on_ice_spear_attack_timer_timeout():
 	if icespear_ammo > 0:
 		var icespear_attack = iceSpear.instantiate()
@@ -215,6 +227,23 @@ func _on_ice_spear_attack_timer_timeout():
 			iceSpearAttackTimer.start()
 		else:
 			iceSpearAttackTimer.stop()
+
+func _on_arrow_timer_timeout():
+	arrow_ammo += arrow_baseammo + additional_attacks
+	arrowAttackTimer.start()
+
+func _on_arrow_attack_timer_timeout():
+	if arrow_ammo > 0:
+		var arrow_attack = arrow.instantiate()
+		arrow_attack.position = position
+		arrow_attack.target = get_random_target()
+		arrow_attack.level = arrow_level
+		add_child(arrow_attack)
+		arrow_ammo -= 1
+		if arrow_ammo > 0:
+			arrowAttackTimer.start()
+		else:
+			arrowAttackTimer.stop()
 
 func _on_tornado_timer_timeout():
 	tornado_ammo += tornado_baseammo + additional_attacks
@@ -349,6 +378,18 @@ func upgrade_character(upgrade):
 		"icespear4":
 			icespear_level = 4
 			icespear_baseammo += 2
+		"arrow1":
+			arrow_level = 1
+			arrow_baseammo += 2
+		"arrow2":
+			arrow_level = 2
+			arrow_baseammo += 2
+		"arrow3":
+			arrow_level = 3
+			arrow_baseammo += 2
+		"arrow4":
+			arrow_level = 4
+			arrow_baseammo += 2
 		"tornado1":
 			tornado_level = 1
 			tornado_baseammo += 1
@@ -380,12 +421,15 @@ func upgrade_character(upgrade):
 			spell_cooldown += 0.05
 		"ring1","ring2":
 			additional_attacks += 1
+		"mage":
+			spell_cooldown += 0.10
+			spell_size += 0.10
 		"food":
 			hp += 20
 			hp = clamp(hp,0,maxhp)
 		"golem":
 			golem_level = 1
-			golem_baseammo = 1
+			golem_baseammo += 1
 	adjust_gui_collection(upgrade)
 	attack()
 	var option_children = upgradeOptions.get_children()

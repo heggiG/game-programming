@@ -1,9 +1,7 @@
-
 [gd_scene load_steps=19 format=3 uid="uid://dncgepmkc4jf4"]
 
 [ext_resource type="Script" path="res://Player/player.gd" id="1_37q80"]
 [ext_resource type="Texture2D" uid="uid://sqad20mrerop" path="res://Textures/Player/player_sprite.png" id="1_jefax"]
-[ext_resource type="Shader" path="res://Player/outline.gdshader" id="2_k247g"]
 [ext_resource type="PackedScene" uid="uid://xy3cvpwdy828" path="res://Utility/hurt_box.tscn" id="3_gs51i"]
 [ext_resource type="Texture2D" uid="uid://dx7xx6vfahxlq" path="res://Textures/GUI/exp_background.png" id="4_pbpj5"]
 [ext_resource type="Texture2D" uid="uid://dlx33roiu0vlj" path="res://Textures/GUI/exp_progress.png" id="5_5ive2"]
@@ -16,19 +14,13 @@
 [ext_resource type="PackedScene" uid="uid://b7c7gsdx2rkjm" path="res://Utility/basic_button.tscn" id="12_i8esf"]
 [ext_resource type="Script" path="res://Player/score.gd" id="13_roba8"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_j4h56"]
-shader = ExtResource("2_k247g")
-shader_parameter/outline_width = 1.0
-shader_parameter/outline_color = Color(0.364706, 0.564706, 1, 0.509804)
-shader_parameter/turned_on = false
-
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nffdp"]
 radius = 4.0
 height = 16.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_24n25"]
 radius = 4.5
-height = 18.0
+height = 25.03
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_anwqc"]
 radius = 370.951
@@ -43,14 +35,12 @@ motion_mode = 1
 script = ExtResource("1_37q80")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-material = SubResource("ShaderMaterial_j4h56")
 texture = ExtResource("1_jefax")
 hframes = 5
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 position = Vector2(2, 3)
 shape = SubResource("CapsuleShape2D_nffdp")
 
@@ -64,7 +54,7 @@ collision_mask = 2
 HurtBoxType = 2
 
 [node name="CollisionShape2D" parent="HurtBox" index="0"]
-position = Vector2(0, 6)
+position = Vector2(0.5, 2.5)
 shape = SubResource("CapsuleShape2D_24n25")
 
 [node name="Attack" type="Node2D" parent="."]
@@ -98,7 +88,7 @@ wait_time = 0.2
 
 [node name="ArrowTimer" type="Timer" parent="Attack"]
 unique_name_in_owner = true
-wait_time = 5.0
+wait_time = 1.5
 
 [node name="ArrowAttackTimer" type="Timer" parent="Attack/ArrowTimer"]
 unique_name_in_owner = true
@@ -118,7 +108,6 @@ collision_layer = 0
 collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GrabArea"]
-visible = false
 shape = SubResource("CircleShape2D_p2554")
 
 [node name="CollectArea" type="Area2D" parent="."]
@@ -126,7 +115,6 @@ collision_layer = 0
 collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CollectArea"]
-visible = false
 shape = SubResource("CircleShape2D_6vwp8")
 
 [node name="GUILayer" type="CanvasLayer" parent="."]
@@ -281,16 +269,6 @@ offset_right = 208.0
 offset_bottom = 56.0
 columns = 10
 
-[node name="TrackingCooldownBar" type="ProgressBar" parent="GUILayer/GUI"]
-layout_mode = 0
-offset_left = 625.0
-offset_top = 33.0
-offset_right = 636.0
-offset_bottom = 347.0
-max_value = 10.0
-fill_mode = 2
-show_percentage = false
-
 [node name="Score" type="Label" parent="GUILayer/GUI"]
 layout_mode = 0
 offset_left = 266.0
@@ -303,19 +281,6 @@ text = "<score>"
 horizontal_alignment = 1
 vertical_alignment = 1
 script = ExtResource("13_roba8")
-
-[node name="trackingTimer" type="Timer" parent="."]
-wait_time = 0.3
-one_shot = true
-
-[node name="trackingCooldown" type="Timer" parent="."]
-wait_time = 10.0
-one_shot = true
-
-[node name="movSpeedBuffTimer" type="Timer" parent="."]
-wait_time = 4.0
-one_shot = true
-
 
 [connection signal="hurt" from="HurtBox" to="." method="_on_hurt_box_hurt"]
 [connection signal="timeout" from="Attack/IceSpearTimer" to="." method="_on_ice_spear_timer_timeout"]
@@ -331,8 +296,5 @@ one_shot = true
 [connection signal="area_entered" from="GrabArea" to="." method="_on_grab_area_area_entered"]
 [connection signal="area_entered" from="CollectArea" to="." method="_on_collect_area_area_entered"]
 [connection signal="click_end" from="GUILayer/GUI/DeathPanel/btn_menu" to="." method="_on_btn_menu_click_end"]
-[connection signal="timeout" from="trackingTimer" to="." method="_on_tracking_timer_timeout"]
-[connection signal="timeout" from="trackingCooldown" to="." method="_on_tracking_cooldown_timeout"]
-[connection signal="timeout" from="movSpeedBuffTimer" to="." method="_on_mov_speed_buff_timer_timeout"]
 
 [editable path="HurtBox"]

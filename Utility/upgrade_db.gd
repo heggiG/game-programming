@@ -71,7 +71,7 @@ const UPGRADES = {
 	"arrow1": {
 		"icon": WEAPON_PATH + "arrow.png",
 		"displayname": "Arrow",
-		"details": "An arrow is shot randomly",
+		"details": "2 arrows are shot randomly",
 		"level": "Level: 1",
 		"prerequisite": [],
 		"type": "weapon"
@@ -79,7 +79,7 @@ const UPGRADES = {
 	"arrow2": {
 		"icon": WEAPON_PATH + "arrow.png",
 		"displayname": "Arrow",
-		"details": "2 random arrows are shot per attack",
+		"details": "2 more arrows are shot per attack",
 		"level": "Level: 2",
 		"prerequisite": ["arrow1"],
 		"type": "weapon"
@@ -87,7 +87,7 @@ const UPGRADES = {
 	"arrow3": {
 		"icon": WEAPON_PATH + "arrow.png",
 		"displayname": "Arrow",
-		"details": "3 random arrows are shot per attack",
+		"details": "+ 2 arrows, + 2 damage, +20% knockback per attack",
 		"level": "Level: 3",
 		"prerequisite": ["arrow2"],
 		"type": "weapon"
@@ -95,7 +95,7 @@ const UPGRADES = {
 	"arrow4": {
 		"icon": WEAPON_PATH + "arrow.png",
 		"displayname": "Arrow",
-		"details": "Arrows now do + 5 damage per attack",
+		"details": "+ 2 arrows, + 2.5 damage, +20% knockback per attack",
 		"level": "Level: 4",
 		"prerequisite": ["arrow3"],
 		"type": "weapon"
@@ -103,7 +103,7 @@ const UPGRADES = {
 	"tornado1": {
 		"icon": WEAPON_PATH + "tornado.png",
 		"displayname": "Tornado",
-		"details": "A tornado is created and random heads somewhere in the players direction",
+		"details": "A tornado appears and goes in the direction the player travels",
 		"level": "Level: 1",
 		"prerequisite": [],
 		"type": "weapon"
@@ -229,7 +229,7 @@ const UPGRADES = {
 		"type": "upgrade"
 	},
 	"scroll1": {
-		"icon": ICON_PATH + "tome.png",
+		"icon": ICON_PATH + "cooldown.png",
 		"displayname": "Initiate",
 		"details": "Decreases of the cooldown of spells by 5% of their base time",
 		"level": "Level: 1",
@@ -237,7 +237,7 @@ const UPGRADES = {
 		"type": "upgrade"
 	},
 	"scroll2": {
-		"icon": ICON_PATH + "tome.png",
+		"icon": ICON_PATH + "cooldown.png",
 		"displayname": "Adeptus",
 		"details": "Decreases of the cooldown of spells by an additional 5% of their base time",
 		"level": "Level: 2",
@@ -245,7 +245,7 @@ const UPGRADES = {
 		"type": "upgrade"
 	},
 	"scroll3": {
-		"icon": ICON_PATH + "tome.png",
+		"icon": ICON_PATH + "cooldown.png",
 		"displayname": "Expert",
 		"details": "Decreases of the cooldown of spells by an additional 5% of their base time",
 		"level": "Level: 3",
@@ -253,7 +253,7 @@ const UPGRADES = {
 		"type": "upgrade"
 	},
 	"scroll4": {
-		"icon": ICON_PATH + "tome.png",
+		"icon": ICON_PATH + "cooldown.png",
 		"displayname": "Master",
 		"details": "Decreases of the cooldown of spells by an additional 5% of their base time",
 		"level": "Level: 4",
@@ -284,12 +284,20 @@ const UPGRADES = {
 		"prerequisite": [],
 		"type": "item"
 	},
-		"golem": {
+	"golem": {
 		"icon": WEAPON_PATH + "golem.png",
 		"displayname": "Summon Golen",
 		"details": "You summon a stationary Golem",
 		"level": "Level: 1",
 		"prerequisite": [],
+		"type": "weapon"
+	},
+	"mage": {
+		"icon": ICON_PATH + "tome.png",
+		"displayname": "Grand Mage",
+		"details": "All attacks are 10% faster and 10% larger",
+		"level": "Level: 1",
+		"prerequisite": ["scroll3", "tome3"],
 		"type": "upgrade"
 	}
 }

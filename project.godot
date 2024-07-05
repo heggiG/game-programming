@@ -19,6 +19,7 @@ config/icon="res://Textures/icon.png"
 [autoload]
 
 UpgradeDb="*res://Utility/upgrade_db.tscn"
+Global="*res://World/global.gd"
 
 [display]
 

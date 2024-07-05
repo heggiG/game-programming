@@ -54,7 +54,7 @@ size = Vector2(16, 21)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ucec4"]
 size = Vector2(11, 20)
 
-[node name="enemy_kobold_weak" type="CharacterBody2D"]
+[node name="enemy_kobold_weak" type="CharacterBody2D" groups=["enemies"]]
 collision_layer = 5
 collision_mask = 5
 motion_mode = 1
@@ -93,7 +93,17 @@ shape = SubResource("RectangleShape2D_ucec4")
 stream = ExtResource("5_03jve")
 volume_db = -20.0
 
+[node name="globalFreezeTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="globalConfusionTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
 [connection signal="hurt" from="HurtBox" to="." method="_on_hurt_box_hurt"]
+[connection signal="timeout" from="globalFreezeTimer" to="." method="_on_global_freeze_timer_timeout"]
+[connection signal="timeout" from="globalConfusionTimer" to="." method="_on_global_confusion_timer_timeout"]
 
 [editable path="HurtBox"]
 [editable path="HitBox"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://e4mil5td0l8p"]
+[gd_scene load_steps=5 format=3 uid="uid://stpulqr0nnst"]
 
 [ext_resource type="Script" path="res://Player/Attack/golem.gd" id="1_n264g"]
 [ext_resource type="Texture2D" uid="uid://blmpm0dmj6hw" path="res://Textures/Items/Weapons/golem.png" id="2_vd80u"]

@@ -70,6 +70,17 @@ var javelin_level = 0
 #Enemy Related
 var enemy_close = []
 
+# Movement Tracker
+var tracking = false
+@onready var trackingTimer = $trackingTimer
+@onready var trackingCooldown = $trackingCooldown
+var trackingButtonEnabled = true
+var trackingOnCooldown = false
+var trackedPoints = []
+var time_start
+var time_end
+var previous_speed
+@onready var moveSpeedTimer = $movSpeedBuffTimer
 
 @onready var sprite = $Sprite2D
 @onready var walkTimer = get_node("%walkTimer")
@@ -101,29 +112,76 @@ func _ready():
 	set_expbar(experience, calculate_experiencecap())
 	_on_hurt_box_hurt(0,0,0)
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	movement()
+	
 
 func movement():
+	var current_sprite = sprite
+	if (Input.get_action_strength("start-elemental-attack") > 0 && trackingButtonEnabled && !trackingOnCooldown):
+		if !tracking: # first press
+			time_start = Time.get_ticks_msec()
+			sprite.material.set_shader_parameter("turned_on", true)
+		
+		trackingButtonEnabled = false
+		tracking = !tracking # switch tracking state
+		
+		trackingTimer.start()
+		if !tracking: # second press
+			sprite.material.set_shader_parameter("turned_on", false)
+			trackingOnCooldown = true
+			trackingCooldown.start()
+			time_end = Time.get_ticks_msec()
+			find_elemental_attack()
+			trackedPoints = []
+	
 	var x_mov = Input.get_action_strength("right") - Input.get_action_strength("left")
 	var y_mov = Input.get_action_strength("down") - Input.get_action_strength("up")
 	var mov = Vector2(x_mov,y_mov)
 	if mov.x > 0:
-		sprite.flip_h = true
+		current_sprite.flip_h = true
 	elif mov.x < 0:
-		sprite.flip_h = false
-
+		current_sprite.flip_h = false
+	
+	if tracking:
+		if last_movement != mov.normalized() && mov.normalized() != Vector2.ZERO:
+			trackedPoints.append(mov.normalized())
+	
 	if mov != Vector2.ZERO:
 		last_movement = mov
 		if walkTimer.is_stopped():
-			if sprite.frame >= sprite.hframes - 1:
-				sprite.frame = 0
+			if current_sprite.frame >= current_sprite.hframes - 1:
+				current_sprite.frame = 0
 			else:
-				sprite.frame += 1
+				current_sprite.frame += 1
 			walkTimer.start()
 	
 	velocity = mov.normalized()*movement_speed
 	move_and_slide()
+
+func find_elemental_attack():
+	print_debug(trackedPoints)
+	print_debug("Finding attack...")
+	var strength = ((time_end - time_start) / 4000) # time passed in seconds divided by 4
+	var filtered_points = trackedPoints.filter(filter_array);
+	if [Vector2(1.0, 0.0), Vector2(0.0, 1.0), Vector2(-1.0, 0.0)] == filtered_points: # ice attack
+		get_tree().call_group("enemies", "global_attack", 0, strength)
+		print_debug("Elemental1")
+	elif [Vector2(-1.0, 0.0), Vector2(0.0, -1.0), Vector2(1.0, 0.0)] == filtered_points: # confusion attack
+		get_tree().call_group("enemies", "global_attack", 1, strength)
+		print_debug("Elemental2")
+	elif [Vector2(0.0, -1.0), Vector2(0.0, 1.0), Vector2(0.0, -1.0)] == filtered_points: # flat damage attack
+		get_tree().call_group("enemies", "global_attack", 2, strength)
+		print_debug("Elemental3")
+	elif [Vector2(-1.0, 0.0), Vector2(1.0, 0.0), Vector2(0.0, -1.0), Vector2(0.0, 1.0)] == filtered_points:
+		print_debug("Elemental4")
+		previous_speed = movement_speed
+		movement_speed = movement_speed * clampf(strength, 1.2, 20000.0)
+		moveSpeedTimer.start()
+	pass
+
+func filter_array(vec: Vector2):
+	return vec.length() == 1.0
 
 func attack():
 	if icespear_level > 0:
@@ -144,6 +202,7 @@ func attack():
 		arrowTimer.wait_time = arrow_attackspeed * (1-spell_cooldown)
 		if arrowTimer.is_stopped():
 			arrowTimer.start()
+
 
 func _on_hurt_box_hurt(damage, _angle, _knockback):
 	hp -= clamp(damage-armor, 1.0, 999.0)
@@ -280,7 +339,7 @@ func calculate_experiencecap():
 	if experience_level < 20:
 		exp_cap = experience_level*5
 	elif experience_level < 40:
-		exp_cap + 95 * (experience_level-19)*8
+		exp_cap = 95 * (experience_level-19)*8
 	else:
 		exp_cap = 255 + (experience_level-39)*12
 		
@@ -452,3 +511,14 @@ func death():
 func _on_btn_menu_click_end():
 	get_tree().paused = false
 	var _level = get_tree().change_scene_to_file("res://TitleScreen/menu.tscn")
+
+
+func _on_tracking_timer_timeout():
+	trackingButtonEnabled = true
+
+func _on_tracking_cooldown_timeout():
+	trackingOnCooldown = false
+
+
+func _on_mov_speed_buff_timer_timeout():
+	movement_speed = previous_speed

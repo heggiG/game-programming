@@ -98,6 +98,14 @@ shape = SubResource("RectangleShape2D_ucec4")
 stream = ExtResource("5_867w5")
 volume_db = -20.0
 
+[node name="globalFreezeTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="globalConfusionTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
 [connection signal="hurt" from="HurtBox" to="." method="_on_hurt_box_hurt"]
 
 [editable path="HurtBox"]
